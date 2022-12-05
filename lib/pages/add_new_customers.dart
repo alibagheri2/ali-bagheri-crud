@@ -18,14 +18,17 @@ class Add_New_Customers extends StatelessWidget {
     return Form(
         key: _formKey,
         child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: const Text('Add Your Information'),
+              backgroundColor:Colors.grey.shade700,
+              leading:GestureDetector(key: const Key('back'),onTap: (){Get.back();},child:const Icon(Icons.arrow_back_ios_new),)),
           body: Stack(
             children: [
               const background(),
               Column(
                 children: [
-                  const SizedBox(
-                    height: 60,
-                  ),
+                //  const SizedBox(height: 60,),
                   const firstname_feild(),
                   const lastname_feild(),
                   const birthday_feild(),
@@ -33,6 +36,7 @@ class Add_New_Customers extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(right: 50, left: 50, top: 10),
                     child: TextFormField(
+                      key: const Key('phone number'),
                       keyboardType: TextInputType.number,
                       validator: (value){
                         if(RegExp(r'^(\98?)?{?(0?9[0-9]{9,9}}?)$').hasMatch(value!))
@@ -59,6 +63,7 @@ class Add_New_Customers extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(right: 50, left: 50, top: 10),
                     child: TextFormField(
+                      key: const Key('email'),
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (isEmail(value!)) {
@@ -90,6 +95,10 @@ class Add_New_Customers extends StatelessWidget {
                     margin: const EdgeInsets.only(right: 30, left: 30),
                     width: Get.width,
                     child: ElevatedButton(
+                      key:Get.find<info_controller>().isEditing.value
+                          ? const Key('edit_button')
+                          : const Key('add_button'),
+
                       style: ElevatedButton.styleFrom(
                           primary: Colors.grey.shade800),
                       onPressed: () {
@@ -216,6 +225,7 @@ class firstname_feild extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(right: 50, left: 50),
       child: TextFormField(
+        key: const Key('first name'),
         validator: (value){
           if(Get.find<info_controller>().isEditing.value){
             if(Get.find<info_controller>().list.any((element) => element.firstname == value) &&
@@ -261,6 +271,7 @@ class lastname_feild extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(right: 50, left: 50, top: 10),
       child: TextFormField(
+        key: const Key('last name'),
         validator: (value){
           if(Get.find<info_controller>().isEditing.value){
             if(Get.find<info_controller>().list.any((element) => element.lastname == value) &&
@@ -306,6 +317,7 @@ class birthday_feild extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(right: 50, left: 50, top: 10),
       child: TextFormField(
+        key: const Key('birthday'),
         validator: (value){
           if(Get.find<info_controller>().isEditing.value){
             if(Get.find<info_controller>().list.any((element) => element.birthday == value) &&
@@ -364,6 +376,7 @@ class banckacountnumber_feild extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(right: 50, left: 50, top: 10),
       child: TextFormField(
+        key: const Key('b.a.n'),
         keyboardType: TextInputType.number,
         controller: Get.find<info_feild_controller>().banckacountnumber,
         decoration: const InputDecoration(

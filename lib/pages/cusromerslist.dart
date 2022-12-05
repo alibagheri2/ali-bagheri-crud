@@ -14,22 +14,22 @@ class CustomersList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey.shade700,
-        title: const Text('Customers List'),
-        centerTitle: true,
+            appBar: AppBar(
+              backgroundColor: Colors.grey.shade700,
+              title: const Text('Customers List'),
+              centerTitle: true,
       ),
-      body: Stack(
-        children: [
-          background(),
-          Column(
-            children: [
-              listveiw(),
+            body: Stack(
+              children: [
+                 background(),
+                 Column(
+                   children: [
+                      listveiw(),
             ],
           )
         ],
       ),
-      floatingActionButton: floating_action_button(),
+            floatingActionButton: floating_action_button(),
     ));
   }
 }
@@ -72,6 +72,7 @@ class listveiw extends StatelessWidget {
             alignment: Alignment.centerRight,
             children: [
               ListTile(
+                key: const Key('list item'),
                 onLongPress: () {
                   Get.find<info_feild_controller>().firstname.text =
                       Get.find<info_controller>().list[index].firstname ?? '';
@@ -92,7 +93,6 @@ class listveiw extends StatelessWidget {
                   Get.find<info_controller>().isEditing.value = true;
                   Get.find<info_controller>().index = index;
                 },
-
                 title: Text(
                     Get.find<info_controller>().list[index].firstname ?? ''),
                 subtitle: Text(
@@ -101,6 +101,7 @@ class listveiw extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: GestureDetector(
+                  key:const Key('delete'),
                     onTap: () {
                       Get.find<info_controller>().list.removeAt(index);
                     },
@@ -112,13 +113,14 @@ class listveiw extends StatelessWidget {
               Padding(
                   padding: EdgeInsets.only(right: 40),
                   child: GestureDetector(
+                    key: const Key('eye'),
                       onTap: () {
                         Get.find<info_controller>().index = index;
                         Get.defaultDialog(
                             textCancel: 'Ok',
                             title: 'Informations',
                             middleText:
-                            'Name : ${Get.find<info_controller>().list[Get.find<info_controller>().index].firstname}\nLastName : ${Get.find<info_controller>().list[Get.find<info_controller>().index].lastname}\nBorn : ${Get.find<info_controller>().list[Get.find<info_controller>().index].birthday}\nPhone Number : ${Get.find<info_controller>().list[Get.find<info_controller>().index].phonenumber}\nEmail : ${Get.find<info_controller>().list[Get.find<info_controller>().index].email}\nB.A.N : ${Get.find<info_controller>().list[Get.find<info_controller>().index].banckacountnumber}');
+                                'Name : ${Get.find<info_controller>().list[Get.find<info_controller>().index].firstname}\nLastName : ${Get.find<info_controller>().list[Get.find<info_controller>().index].lastname}\nBorn : ${Get.find<info_controller>().list[Get.find<info_controller>().index].birthday}\nPhone Number : ${Get.find<info_controller>().list[Get.find<info_controller>().index].phonenumber}\nEmail : ${Get.find<info_controller>().list[Get.find<info_controller>().index].email}\nB.A.N : ${Get.find<info_controller>().list[Get.find<info_controller>().index].banckacountnumber}');
                       },
                       child: Icon(
                         Icons.remove_red_eye,
@@ -131,6 +133,7 @@ class listveiw extends StatelessWidget {
     }));
   }
 }
+
 class floating_action_button extends StatelessWidget {
   const floating_action_button({
     Key? key,
